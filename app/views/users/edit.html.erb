@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="twelve columns">
+		<h4>Edit User</h4>
+    		<form action="/users/<%=@user.id%>" method="post">
+    			<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+    			<input type="hidden" name="_method" value="patch">
+    			<label>First Name: 
+	    			<input type="text" name="user[first_name]" value="<%=@user.first_name%>">
+	    		</label>
+	    		<label>Last Name: 
+	    			<input type="text" name="user[last_name]" value="<%=@user.last_name%>">
+	    		</label>
+	    		<label>Email: 
+	    			<input type="text" name="user[email]" value="<%=@user.email%>">
+	    		</label>
+	    		<label>Location: 
+	    			<input type="text" name="user[location]" value="<%=@user.location%>">
+	    		</label>
+	    		<div class="form-group">
+			        <label for="state">State:
+			            <select name="user[state]" id="state">
+			               	<% CS.states(:us).each do |key, value|  %>
+			                   	<option value="<%= key %>"><%= key%></option>
+			                <% end %>
+			            </select>
+			        </label>
+			    </div>
+	    		<input type="submit" class="button-primary" name="" value="Update Your Records">
+    		</form>
+	</div>
+</div>

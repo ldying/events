@@ -1,0 +1,57 @@
+<style type="text/css">
+	#log{
+		border: 1px solid black;
+		border-radius: 8px;
+		display: block;
+		width: 400px;
+		height: 400px;
+		margin: 0px auto;
+		font-size: 13px;
+		overflow: auto;
+	}
+</style>
+<div class="row">
+	<div class="six columns">
+		<h4>Event: <%= @event.name %></h4>
+		<p>Host: <%= @event.user.first_name+" "+@event.user.last_name %></p>
+		<p>Date: <%= @event.date.to_formatted_s(:long) %></p>
+		<p>Location: <%= @event.location+", "+@event.state %></p>
+		<p>Number of Attendees: <%= @event.users_attendings.count %></p>
+		<hr>
+		<h5>People Attending:</h5>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Location</th>
+					<th>State</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @event.users_attendings.each do |u| %>
+					<tr>
+						<td><%=u.first_name+" "+u.last_name %></td>
+						<td><%=u.location%></td>
+						<td><%=u.state%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+	<div class="six columns">
+		<h5>Discussion about this event:</h5>
+		<p>(Newest comments first)</p>
+		<div id="log">
+			<% @event.comments.reverse.each do |x| %>
+				<%= x.user.first_name %> says: <%= x.text %><br>
+				------------------------------------<br>
+			<% end %>
+		</div>
+		<form action="/comments" method="post">
+			<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+			<input type="hidden" name="event_id" value="<%=@event.id%>">
+		    <input type='text' name='text' value=''>
+		    <input type='submit' value='Add Comment'>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,54 @@
+	<h2>Welcome to Events</h2>
+	<div class="row">
+    	<div class="six columns">
+			<% if flash[:notice] %>
+			  <div class="notice" style="background-color:lightgreen; display:inline-block"><%= flash[:notice] %> </div>
+			<% end %>
+    		<h4>Register</h4>
+    		<form action="/users" method="post">
+    			<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+    			<label>First Name: 
+	    			<input type="text" name="user[first_name]">
+	    		</label>
+	    		<label>Last Name: 
+	    			<input type="text" name="user[last_name]">
+	    		</label>
+	    		<label>Email: 
+	    			<input type="text" name="user[email]">
+	    		</label>
+	    		<label>Location: 
+	    			<input type="text" name="user[location]">
+	    		</label>
+	    		<div class="form-group">
+			        <label for="state">State:
+			            <select name="user[state]" id="state">
+			               	<% CS.states(:us).each do |key, value|  %>
+			                   	<option value="<%= key %>"><%= key%></option>
+			                <% end %>
+			            </select>
+			        </label>
+			    </div>
+	    		<label>Password: 
+	    			<input type="text" name="user[password]">
+	    		</label>
+	    		<label>Confirm PW: 
+	    			<input type="text" name="user[password_confirmation]">
+	    		</label>
+	    		<input type="submit" class="button-primary" name="" value="Register">
+    		</form>
+    	</div>
+    	<div class="six columns">
+    		<h4>Login</h4>
+    		<form action="/sessions" method="post">
+    			<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+	    		<label>Email: 
+	    			<input type="text" name="user[email]">
+	    		</label>
+	    		<label>Password: 
+	    			<input type="text" name="user[password]">
+	    		</label>
+	    		<input type="submit" class="button-primary" name="" value="Login">
+    		</form>
+    	</div>
+    </div>
+
